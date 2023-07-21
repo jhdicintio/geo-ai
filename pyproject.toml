@@ -4,15 +4,32 @@ version = "0.1.0"
 description = "Geospatial Processing using an LLM"
 authors = ["Jack DiCintio <dicintio.jack@gmail.com>"]
 readme = "README.md"
-packages = [{include = "geo_ai"}]
+packages = [{include = "src"}]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.10.4"
 openai = "^0.27.8"
 langchain = "^0.0.233"
 rasterio = "^1.3.8"
 
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+
+
+
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+    "integration",
+]
+python_files = "*_test.py"
+python_classes = "*Test"
+python_functions = "*_test"

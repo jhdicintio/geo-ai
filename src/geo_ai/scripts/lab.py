@@ -16,16 +16,23 @@ Animal: {}
 Names:""".format(animal.capitalize())
 
 
-if __name__ == "__main__":
-
-    animal="rhino"
-    print(generate_prompt(animal=animal))
-
-    assert 1 == 2
-
+def generate_model_completion_response(animal: str):
     response = openai.Completion.create(
     model="text-davinci-003",
     prompt=generate_prompt(animal),
     temperature=0.6
     )
-    print(response)
+    return response
+
+
+def generate_model_chat_completion_response():
+    response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+            {"role": "system", "content": "You are a terse barista."},
+            {"role": "user", "content": "What the best coffee you've got?"},
+            {"role": "assistant", "content": "I dunno, maybe the latte. Beats me."},
+            {"role": "user", "content": "What do you normally get?"}
+        ]
+    )
+    return response
